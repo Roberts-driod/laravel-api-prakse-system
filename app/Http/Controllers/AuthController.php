@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -17,6 +18,8 @@ class AuthController extends Controller
             "name" => "required|max:255",
             "email" => "required|unique:users|email",
             "password" => "required|confirmed",
+            "role_id" => "required",
+            "group_id" => "nullable"
         ]);
 
         $user = User::create($fields);
@@ -58,6 +61,12 @@ class AuthController extends Controller
         return [
             "message" => "youre logged out "
         ];
+    }
+
+    
+    public function test(Request $request){
+
+        return Role::all();
     }
 
 }
