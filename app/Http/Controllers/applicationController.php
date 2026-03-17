@@ -24,30 +24,8 @@ class applicationController extends Controller
 
             $fields = $request->validated();
 
-            return DB::transaction(function () use ($fields, $request) {
-
-                $user = User::find($fields['user_id']);
-                if (!$user) abort(404, 'User not found');
-
-                $internship = Internship::find($fields['internship_id']);
-                if (!$internship) abort(404, 'Internship not found');
-
-                if ($user->role->role !== "student") {
-                    abort(403, 'No permission');
-                }
-
-                $exists = Application::where('user_id', $fields['user_id'])
-                    ->where('internship_id', $fields['internship_id'])
-                    ->exists();
-
-                if ($exists) {
-                    abort(409, 'Already applied');
-                }
-
-                
-
-                return Application::create($fields);
-            });
+            return Application::storeWithValidation($fields);
+            
         }
 
     public function store_mysql(StoreApplicationReq $request){
@@ -56,12 +34,7 @@ class applicationController extends Controller
 
             try {
                 // We use DB::statement to run the CALL command
-                DB::statement("CALL sp_store_application(?, ?, ?, ?)", [
-                    $fields['user_id'],
-                    $fields['internship_id'],
-                    $fields['group_id'],
-                    $fields['motivation_letter']
-                ]);
+                Application::storeViaProcedure($fields);
 
                 return response()->json(['message' => 'Application submitted!'], 201);
 
