@@ -19,3 +19,4 @@ Route::get('/test', [AuthController::class, 'test']);
 
 Route::get('/application', [applicationController::class, 'index']);
 Route::post('/application', [applicationController::class, 'store']);
+Route::post('/application/my', [applicationController::class, 'store_mysql']);

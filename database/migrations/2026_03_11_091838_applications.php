@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('approved_at')->nullable();
             $table->longText('motivation_letter');
             $table->primary(['user_id', 'internship_id', 'group_id']);
+            $table->timestamps();
         });
 
     }

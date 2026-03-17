@@ -12,7 +12,6 @@ class Application extends Model
 
     protected $fillable = ['user_id', 'internship_id', 'group_id', 'approved_at', 'motivation_letter'];
 
-
     public function user()
     {
         return $this->belongsTo(User::class);
