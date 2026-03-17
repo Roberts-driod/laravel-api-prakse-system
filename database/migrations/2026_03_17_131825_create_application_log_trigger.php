@@ -15,8 +15,8 @@ return new class extends Migration
             AFTER INSERT ON applications
             FOR EACH ROW
             BEGIN
-                INSERT INTO user_logs (user_id, action, table_name, record_id, created_at)
-                VALUES (NEW.user_id, 'SUCCESSFUL_APPLICATION', 'applications', NEW.user_id, NOW());
+                INSERT INTO user_logs (user_id, action, table_name, record_id,details, created_at)
+                VALUES (NEW.user_id, 'SUCCESSFUL_APPLICATION', 'applications', NEW.user_id,  'From trigger ', NOW());
             END
         ");
     }
