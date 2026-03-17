@@ -56,11 +56,13 @@ return new class extends Migration
                 INSERT INTO applications (user_id, internship_id, group_id, motivation_letter, created_at, updated_at)
                 VALUES (p_user_id, p_internship_id, p_group_id, p_motivation_letter, NOW(), NOW());
 
-                INSERT INTO user_logs (user_id, action, table_name, record_id, created_at)
-                VALUES (p_user_id, 'CREATED_APPLICATION', 'applications', LAST_INSERT_ID(), NOW());
+
             END
         ");
     }
+
+                //     INSERT INTO user_logs (user_id, action, table_name, record_id, created_at)
+                // VALUES (p_user_id, 'CREATED_APPLICATION', 'applications', LAST_INSERT_ID(), NOW());
 
     public function down(): void
     {
