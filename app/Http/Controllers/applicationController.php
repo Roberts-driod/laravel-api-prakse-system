@@ -46,5 +46,34 @@ class applicationController extends Controller
         return Application::create($fields);
     }
 
+    public function store_comment(Request $request){
+
+
+            $validated = $request->validate([
+                'comment' => 'required|string|max:1000',
+            ]);
+
+            try {
+
+                    $application = Application::where('user_id', 1)
+                        ->where('internship_id', 1)
+                        ->where('group_id', 1)
+                        ->firstOrFail();
+
+                    $comment = $application->comments()->create([
+                        'body' => $validated['comment']
+                    ]);
+
+                    return response()->json([
+                        'message' => 'Comment created successfully',
+                        'data' => $comment
+                    ], 201);
+
+                } catch (\Exception $e) {
+                    return response()->json(['error' => 'Resource not found'], 404);
+                }
+
+    }
+
 
 }   

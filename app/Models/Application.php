@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Internship;
 use App\Models\User;
 use App\Models\Group;
+use App\Models\comments;
 
 class Application extends Model
 {
@@ -29,6 +30,11 @@ class Application extends Model
     public function group()
     {
         return $this->belongsTo(Group::class);
+    }
+
+        public function comments()
+    {
+        return $this->morphMany(comments::class, 'commentable');
     }
 
         public static function storeWithValidation(array $data)
